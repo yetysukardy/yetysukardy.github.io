@@ -30,3 +30,21 @@ section, footer {
 #form .card-panel {
     height: 455px;
 }
+
+.btn-loading {
+    width: 105px;
+}
+
+/* .msg {
+    width:100%;
+    border: 1px solid;
+    padding:10px;
+    color: grey;
+  }
+
+  .my-alert{
+    border-color: #31f02a;
+    background-color: #05ee05;
+    color: black;
+    opacity: 0.8;
+  } */

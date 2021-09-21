@@ -224,13 +224,14 @@
                         <li class="collection-item">Sulawesi Tengah, Indonesia</li>
                     </ul>
                 </div>
+                <!-- Form Diskon -->
                 <div class="col m7 s12">
-                    <form id="form">
+                    <form id="form" name="data-diskon-saungvideo-form">
                         <div  class="card-panel">
                             <h3 class="center light purple-text text-lighten-2"><strong>DISKON 50%</strong></h3>
                             <h5>Isi form berikut</h5>
                             <div class="input-field">
-                                <input type="text" name="name" id="name" required class="valudate">
+                                <input type="text" name="nama" id="name" required class="valudate">
                                 <label for="name">Nama</label>        
                             </div>
                             <div class="input-field">
@@ -238,14 +239,38 @@
                                 <label for="email">Email</label>        
                             </div>
                             <div class="input-field">
-                                <input type="text" name="phone" id="phone" required >
+                                <input type="text" name="no. whatsapp" id="phone" required >
                                 <label for="phone">No. WhatsApp</label>        
                             </div>
-                            <button class="btn waves-effect purple lighten-2 center" type="submit" name="action">Submit
+                            <!-- tombol kirim -->
+                            <button class="btn waves-effect purple lighten-2 center btn-kirim" type="submit" name="action">Kirim
                                 <i class="material-icons right">send</i>
+                              </button>
+                            <!-- tombol loading -->
+                            <button class="hide btn waves-effect purple lighten-2 center btn-loading disabled" type="submit" name="action">
+                                <div class="preloader-wrapper small active">
+                                    <div class="spinner-layer spinner-green-only">
+                                      <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                      </div>
+                                      <div class="gap-patch">
+                                        <div class="circle"></div>
+                                      </div>
+                                      <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                      </div>
+                                    </div>
+                                  </div>
                               </button>
                         </div>
                     </form>
+                    <!-- Alert Sukses -->
+                    <div class="chip green my-alert hide" style="padding: auto; width: 100%; height: 50px;">
+                        <i class=" close material-icons right white-text" style="padding-top: 8px;">close</i>
+                        <h6 class="white-text" ><b>Terimakasih!</b> Admin Akan Segera Menghubungi Anda.<h6>
+                    </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,7 +292,6 @@
           const sideNav = document.querySelectorAll('.sidenav');
           M.Sidenav.init(sideNav);
 
-
           const slider = document.querySelectorAll('.slider');
           M.Slider.init(slider, {
               indicators: false,
@@ -279,19 +303,42 @@
           const parallax = document.querySelectorAll('.parallax');
           M.Parallax.init(parallax);
 
-        //   const materialbox = document.querySelectorAll('.materialboxed');
-        //   M.Materialbox.init(materialbox);
-
           const scroll = document.querySelectorAll('.scrollspy');
           M.ScrollSpy.init(scroll, {
                 scrollOffset: 50
           });
 
-
-
-
-
       </script>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwDuuGgAJX-MicBOsQPUPNtfJMvW0pQnHi3ark-x3P482xVX0JtH85UDfhMLnK8NSI/exec'
+        const form = document.forms['data-diskon-saungvideo-form'];
+        const btnKirim = document.querySelector('.btn-kirim');
+        const btnLoading = document.querySelector('.btn-loading');
+        const myAlert = document.querySelector('.my-alert');
+
+        form.addEventListener('submit', e => {
+        e.preventDefault();
+        // ketika tombol kirim di klik
+        // tampilkan tombol loading, hilangkan tombol kirim
+        btnLoading.classList.toggle('hide');
+        btnKirim.classList.toggle('hide');
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                // tampilkan tombol kirim, hilangkan tombol loading
+                btnLoading.classList.toggle('hide');
+                btnKirim.classList.toggle('hide');
+                // tampilkan alert
+                myAlert.classList.toggle('hide');
+                // menghapus isi form
+                form.reset();
+                console.log('Success!', response);
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+
     </body>
   </html>
         
